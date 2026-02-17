@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function AdminLoginPage(){
   const [email, setEmail] = useState('admin@bakery.com')
-  const [password, setPassword] = useState('admin123')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
