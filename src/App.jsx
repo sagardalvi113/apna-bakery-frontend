@@ -1,5 +1,6 @@
 
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import { createTheme, ThemeProvider, CssBaseline, Container } from '@mui/material'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
@@ -23,6 +24,22 @@ const theme = createTheme({
 })
 
 export default function App(){
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    // Redirect to landing page only when the page was reloaded
+    try {
+      const navEntries = performance.getEntriesByType && performance.getEntriesByType('navigation')
+      const nav = Array.isArray(navEntries) && navEntries.length ? navEntries[0] : null
+      const isReload = nav ? nav.type === 'reload' : (performance.navigation && performance.navigation.type === 1)
+      if (isReload && location.pathname !== '/') {
+        navigate('/', { replace: true })
+      }
+    } catch (e) {
+      // fallback: do nothing
+    }
+  }, [])
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
