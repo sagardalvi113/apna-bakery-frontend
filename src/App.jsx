@@ -28,16 +28,10 @@ export default function App(){
   const location = useLocation()
 
   useEffect(() => {
-    // Redirect to landing page only when the page was reloaded
-    try {
-      const navEntries = performance.getEntriesByType && performance.getEntriesByType('navigation')
-      const nav = Array.isArray(navEntries) && navEntries.length ? navEntries[0] : null
-      const isReload = nav ? nav.type === 'reload' : (performance.navigation && performance.navigation.type === 1)
-      if (isReload && location.pathname !== '/') {
-        navigate('/', { replace: true })
-      }
-    } catch (e) {
-      // fallback: do nothing
+    // On initial load, redirect any non-root path to the landing page
+    // (client-side fallback for hosts not serving SPA rewrites)
+    if (location.pathname !== '/') {
+      navigate('/', { replace: true })
     }
   }, [])
   return (
