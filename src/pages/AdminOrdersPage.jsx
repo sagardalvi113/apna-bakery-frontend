@@ -4,6 +4,7 @@ import api from '../api.js'
 import { formatISTDateTime } from '../utils/dateUtils.js'
 import { Alert, Button, Card, CardActions, CardContent, Chip, CircularProgress, Grid, Stack, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Checkbox, FormControlLabel } from '@mui/material'
 import RefreshIcon from '@mui/icons-material/Refresh'
+import PrintIcon from '@mui/icons-material/Print'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import HourglassTopIcon from '@mui/icons-material/HourglassTop'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
@@ -131,6 +132,78 @@ export default function AdminOrdersPage(){
         <Typography sx={{ color: '#6b7280', fontWeight: 600 }}>Loading incoming orders...</Typography>
       </Stack>
     )
+  }
+  
+  const printOrder = (order) => {
+    if (!order) return
+    const itemsHtml = (order.items || []).map(i => `
+      <tr>
+        <td style="padding:8px;border-bottom:1px solid #eee">${i.product?.name || 'Item'}</td>
+        <td style="padding:8px;border-bottom:1px solid #eee;text-align:center">${i.quantity}</td>
+        <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">₹${Number(i.price).toFixed(2)}</td>
+        <td style="padding:8px;border-bottom:1px solid #eee;text-align:right">₹${(Number(i.price) * i.quantity).toFixed(2)}</td>
+      </tr>
+    `).join('')
+
+    const html = `
+      <!doctype html>
+      <html>
+        <head>
+          <meta charset="utf-8" />
+          <title>Invoice - Order #${order.id}</title>
+          <style>
+            body{font-family:Arial,Helvetica,sans-serif;padding:20px;color:#222}
+            .header{display:flex;justify-content:space-between;align-items:center}
+            .items{width:100%;border-collapse:collapse;margin-top:16px}
+            .totals{margin-top:12px;display:flex;justify-content:flex-end}
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div>
+              <h2>Highway Bakery</h2>
+              <div>Order #${order.id}</div>
+              <div>${formatISTDateTime(order.createdAt)}</div>
+            </div>
+            <div style="text-align:right">
+              <div><strong>Customer</strong></div>
+              <div>${order.customerName}</div>
+              <div>📞 ${order.customerPhone}</div>
+            </div>
+          </div>
+          <table class="items">
+            <thead>
+              <tr>
+                <th style="text-align:left;padding:8px;border-bottom:2px solid #ccc">Product</th>
+                <th style="text-align:center;padding:8px;border-bottom:2px solid #ccc">Qty</th>
+                <th style="text-align:right;padding:8px;border-bottom:2px solid #ccc">Price</th>
+                <th style="text-align:right;padding:8px;border-bottom:2px solid #ccc">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${itemsHtml}
+            </tbody>
+          </table>
+          <div class="totals">
+            <div style="min-width:200px;text-align:right">
+              <div>Subtotal: ₹${Number(order.totalAmount).toFixed(2)}</div>
+            </div>
+          </div>
+          <script>
+            window.onload = function(){ window.print(); setTimeout(()=>window.close(),500); }
+          </script>
+        </body>
+      </html>
+    `
+
+    const w = window.open('', '_blank', 'toolbar=0,location=0,menubar=0')
+    if (!w) {
+      alert('Popup blocked — allow popups for this site to print invoices.')
+      return
+    }
+    w.document.open()
+    w.document.write(html)
+    w.document.close()
   }
 
   return (
@@ -324,6 +397,20 @@ export default function AdminOrdersPage(){
                 </CardContent>
 
                 <CardActions sx={{ pt: 0, px: 2, pb: 2, justifyContent: 'flex-end', gap: 1 }}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => printOrder(o)}
+                    startIcon={<PrintIcon />}
+                    sx={{
+                      borderColor: '#6a4e23',
+                      color: '#6a4e23',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      fontSize: '12px'
+                    }}
+                  >
+                    Print
+                  </Button>
                   {o.status === 'PENDING' && (
                     <Button 
                       variant="contained"
