@@ -1,13 +1,15 @@
 
 import { useState, useEffect } from 'react'
-import { TextField, Button, Stack, Typography, Alert, Paper, Box, CircularProgress } from '@mui/material'
+import { TextField, Button, Stack, Typography, Alert, Paper, Box, CircularProgress, List, ListItem, IconButton } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import api from '../api.js'
 import { useCart } from '../store.js'
 import { useNavigate } from 'react-router-dom'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 
 export default function CheckoutPage(){
-  const { cart, clear } = useCart()
+  const { cart, clear, increase, decrease } = useCart()
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [error, setError] = useState('')
@@ -84,6 +86,30 @@ export default function CheckoutPage(){
           {error && <Alert severity="error" sx={{ py: 1.5, borderRadius: '12px' }}>{error}</Alert>}
           {cart?.length === 0 && <Alert severity="warning" sx={{ py: 1.5, borderRadius: '12px' }}>Your cart is empty. Add items before checkout.</Alert>}
           {cart?.length > 0 && <Alert severity="info" sx={{ py: 1.5, borderRadius: '12px' }}>✓ You have {cart.length} item(s) in your cart. Enter your details to proceed.</Alert>}
+
+          {cart?.length > 0 && (
+            <Box sx={{ mt: 2, mb: 1 }}>
+              <List sx={{ p: 0 }}>
+                {cart.map(ci => (
+                  <ListItem key={ci.product?.id} sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 0.5 }}>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography sx={{ fontWeight: 700 }}>{ci.product?.name}</Typography>
+                      <Typography sx={{ fontSize: 13, color: '#6b7280' }}>₹{ci.product?.price}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <IconButton size="small" onClick={() => decrease(ci.product?.id)}>
+                        <RemoveIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                      <Typography sx={{ width: 24, textAlign: 'center', fontWeight: 700 }}>{ci.quantity}</Typography>
+                      <IconButton size="small" onClick={() => increase(ci.product?.id)}>
+                        <AddIcon sx={{ fontSize: 18 }} />
+                      </IconButton>
+                    </Box>
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          )}
 
           <Box sx={{ py: 2, px: 2, background: 'rgba(232, 181, 72, 0.1)', borderRadius: '12px' }}>
             <Stack direction="row" justifyContent="space-between">

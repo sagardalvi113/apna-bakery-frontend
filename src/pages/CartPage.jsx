@@ -1,12 +1,14 @@
 
 import { useCart } from '../store.js'
-import { Box, Button, Divider, List, ListItem, ListItemText, Typography, Paper, Stack, Chip, IconButton, Container } from '@mui/material'
+import { Box, Button, Divider, List, ListItem, ListItemText, Typography, Paper, Stack, Chip, IconButton, Container, ButtonGroup } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import { useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EmptyState from '../components/EmptyState.jsx'
 
 export default function CartPage(){
-  const { cart, remove } = useCart()
+  const { cart, remove, increase, decrease } = useCart()
   const navigate = useNavigate()
   const total = cart.reduce((a,c)=> a + (c.product?.price || 0) * c.quantity, 0).toFixed(2)
   
@@ -86,17 +88,15 @@ export default function CartPage(){
                           fontSize: '12px'
                         }}
                       />
-                      <Chip 
-                        label={`Qty: ${ci.quantity}`}
-                        size="small"
-                        variant="outlined"
-                        sx={{ 
-                          borderColor: '#6a4e23', 
-                          color: '#6a4e23',
-                          fontSize: '12px',
-                          fontWeight: 600
-                        }}
-                      />
+                      <ButtonGroup variant="outlined" size="small" aria-label="quantity controls">
+                        <IconButton size="small" onClick={() => decrease(ci.product?.id)}>
+                          <RemoveIcon sx={{ fontSize: 18 }} />
+                        </IconButton>
+                        <Box sx={{ display: 'flex', alignItems: 'center', px: 1.25, fontWeight: 700, color: '#6a4e23' }}>{ci.quantity}</Box>
+                        <IconButton size="small" onClick={() => increase(ci.product?.id)}>
+                          <AddIcon sx={{ fontSize: 18 }} />
+                        </IconButton>
+                      </ButtonGroup>
                       <Chip 
                         label={`₹${((ci.product?.price || 0) * ci.quantity).toFixed(2)}`}
                         size="small"
