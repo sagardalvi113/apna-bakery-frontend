@@ -13,13 +13,14 @@ export default function Navbar(){
   
   return (
     <AppBar 
-      position="sticky" 
+      position="fixed" 
       elevation={0}
       sx={{
         background: 'rgba(250, 248, 243, 0.7)',
         backdropFilter: 'blur(12px) saturate(120%)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
         color: '#6a4e23'
+        , top: 0, left: 0, right: 0, zIndex: 1400
       }}
     >
       <Toolbar sx={{ gap: 2, padding: '8px 24px' }}>

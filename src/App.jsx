@@ -38,7 +38,7 @@ export default function App(){
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Navbar />
-      <Container className="container" sx={{ mt: 3, mb: 6 }}>
+      <Container className="container" sx={{ pt: '80px', mb: 6 }}>
         <div className="hero">
           <h1>Highway Bakery</h1>
           <p>Fast pickup for Khari • Bread • Biscuits • Rusk • Cakes</p>
