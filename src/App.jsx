@@ -12,6 +12,7 @@ import AdminLoginPage from './pages/AdminLoginPage.jsx'
 import AdminOrdersPage from './pages/AdminOrdersPage.jsx'
 import AdminProductsPage from './pages/AdminProductsPage.jsx'
 import FloatingCart from './components/FloatingCart.jsx'
+import HeroSlider from './components/HeroSlider.jsx'
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token')
@@ -92,26 +93,22 @@ export default function App(){
                 </div>
                 <div className="wordmark">Amruta</div>
                 <div className="hero__subtitle">Fast pickup for Khari • Bread • Biscuits • Rusk • Cakes</div>
-                <div className="hero__actions">
-                  <button className="btn-primary" onClick={() => navigate('/')}>Shop Now</button>
-                  <button className="btn-secondary" onClick={handlePickupOrder}>Order Pickup</button>
-                  <div style={{ flex: 1, minWidth: 220 }}>
-                    <div style={{ display: 'flex', gap: 8 }}>
-                      <input
-                        aria-label="Search bakery items"
-                        className="hero-search"
-                        placeholder="Search bakery items..."
-                        value={heroQuery}
-                        onChange={e => setHeroQuery(e.target.value)}
-                        onKeyDown={(e) => { if (e.key === 'Enter') handleHeroSearch() }}
-                      />
-                      <button className="btn-primary" onClick={handleHeroSearch}>Search</button>
-                    </div>
+                <div style={{ marginTop: 14, width: '100%', maxWidth: 560 }}>
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <input
+                      aria-label="Search bakery items"
+                      className="hero-search"
+                      placeholder="Search bakery items..."
+                      value={heroQuery}
+                      onChange={e => setHeroQuery(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === 'Enter') handleHeroSearch() }}
+                    />
+                    <button className="btn-primary" onClick={handleHeroSearch}>Search</button>
                   </div>
                 </div>
             </div>
             <div className="hero__right">
-              <div className="decorative" aria-hidden />
+              <HeroSlider />
             </div>
           </div>
         </div>

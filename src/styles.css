@@ -349,6 +349,22 @@ body {
   .hero--theme .wordmark { font-size: 44px; }
 }
 
+/* Hero slider styles */
+.hero-slider { position: relative; width: 100%; display: flex; align-items: center; }
+.hero-slider__list { display: flex; gap: 18px; overflow-x: auto; scroll-behavior: smooth; padding: 10px 6px; -webkit-overflow-scrolling: touch; }
+.hero-slider__list::-webkit-scrollbar { height: 8px; }
+.hero-slider__list::-webkit-scrollbar-thumb { background: rgba(106,78,35,0.15); border-radius: 8px; }
+.hero-slider__card { flex: 0 0 220px; max-width: 220px; }
+.slider-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 10px; border: none; background: rgba(255,255,255,0.95); box-shadow: 0 8px 20px rgba(106,78,35,0.08); display:flex; align-items:center; justify-content:center; font-size: 26px; cursor: pointer; }
+.slider-btn.left { left: -14px; }
+.slider-btn.right { right: -14px; }
+.slider-btn:active { transform: translateY(-50%) scale(0.98); }
+
+@media (max-width: 900px) {
+  .hero-slider__card { flex: 0 0 180px; max-width: 180px; }
+  .slider-btn { display: none; }
+}
+
 /* promo ribbon */
 .promo-ribbon {
   display: inline-block;
