@@ -270,6 +270,26 @@ body {
   .container { padding: 0 16px; }
 }
 
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .product-media { height: 140px; }
+  .glass-card { border-radius: 14px; }
+  .glass-card .MuiButton-root { padding: 12px 10px; font-size: 14px; }
+  .category-chips { margin-bottom: 16px; }
+  .sticky-cart-bar {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 18px;
+    z-index: 1800;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+  .sticky-cart-bar .MuiButton-root { padding: 10px 14px }
+}
+
 /* Typographic hero (wordmark) */
 .hero--text { padding: 36px 0 28px; }
 .hero--text .hero__wrap {
@@ -363,6 +383,15 @@ body {
 @media (max-width: 900px) {
   .hero-slider__card { flex: 0 0 180px; max-width: 180px; }
   .slider-btn { display: none; }
+}
+
+/* Mobile-first: collapse heavy hero actions and decorative right panel to prioritize search in the navbar */
+@media (max-width: 600px) {
+  .hero--theme .hero__actions { display: none; }
+  .hero--theme .hero__right { display: none; }
+  .hero--theme .wordmark { font-size: 28px; }
+  .hero--theme { padding: 18px 0 12px; }
+  .hero { padding: 12px 0 8px; }
 }
 
 /* promo ribbon */

@@ -1,5 +1,6 @@
 
 import { useEffect, useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import api from '../api.js'
 import { Grid, Snackbar, Alert, Stack, TextField, Box, Button, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { useCart } from '../store.js'
@@ -14,6 +15,7 @@ import TuneIcon from '@mui/icons-material/Tune'
 const DEFAULT_CATS = ['Khari','Bread','Biscuits','Rusk','Cakes','Namkeen']
 
 export default function ProductListPage(){
+  const location = useLocation()
   const [products, setProducts] = useState(null)
   const [activeCat, setActiveCat] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
@@ -68,34 +70,36 @@ export default function ProductListPage(){
 
   return (
     <>
-      {/* Search Bar */}
-      <Box sx={{ mb: 3 }}>
-        <TextField
-          fullWidth
-          placeholder="Search bakery items..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          InputProps={{
-            startAdornment: <SearchIcon sx={{ mr: 1, color: '#6a4e23' }} />
-          }}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              borderRadius: '12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.7)',
-              transition: 'box-shadow 0.2s ease',
-              '&:hover': {
-                boxShadow: '0 4px 12px rgba(106, 78, 35, 0.1)'
+      {/* Search Bar: hide on landing because hero / navbar provide search */}
+      {location.pathname !== '/' && (
+        <Box sx={{ mb: 3 }}>
+          <TextField
+            fullWidth
+            placeholder="Search bakery items..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            InputProps={{
+              startAdornment: <SearchIcon sx={{ mr: 1, color: '#6a4e23' }} />
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '12px',
+                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                transition: 'box-shadow 0.2s ease',
+                '&:hover': {
+                  boxShadow: '0 4px 12px rgba(106, 78, 35, 0.1)'
+                },
+                '&.Mui-focused': {
+                  boxShadow: '0 8px 20px rgba(106, 78, 35, 0.15)'
+                }
               },
-              '&.Mui-focused': {
-                boxShadow: '0 8px 20px rgba(106, 78, 35, 0.15)'
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#e5ded5'
               }
-            },
-            '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#e5ded5'
-            }
-          }}
-        />
-      </Box>
+            }}
+          />
+        </Box>
+      )}
 
       {/* Category Chips */}
       <CategoryChips categories={categories} active={activeCat} onChange={setActiveCat} />
