@@ -10,6 +10,7 @@ import CheckoutPage from './pages/CheckoutPage.jsx'
 import OrderSearchPage from './pages/OrderSearchPage.jsx'
 import AdminLoginPage from './pages/AdminLoginPage.jsx'
 import AdminOrdersPage from './pages/AdminOrdersPage.jsx'
+import AdminProductsPage from './pages/AdminProductsPage.jsx'
 import FloatingCart from './components/FloatingCart.jsx'
 
 const ProtectedRoute = ({ children }) => {
@@ -50,6 +51,7 @@ export default function App(){
           <Route path="/orders" element={<OrderSearchPage />} />
           <Route path="/admin/login" element={<AdminLoginPage />} />
           <Route path="/admin/orders" element={<ProtectedRoute><AdminOrdersPage /></ProtectedRoute>} />
+          <Route path="/admin/products" element={<ProtectedRoute><AdminProductsPage /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
