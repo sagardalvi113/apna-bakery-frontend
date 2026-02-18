@@ -40,9 +40,9 @@ export default function App(){
       <CssBaseline />
       <Navbar />
       <Container className="container" sx={{ pt: '80px', mb: 6 }}>
-        <div className="hero">
-          <h1>Amruta Bakery</h1>
-          <p>Fast pickup for Khari • Bread • Biscuits • Rusk • Cakes</p>
+        <div className="hero" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12 }}>
+          <img src="/hero.png" alt="Amruta Bakery" style={{ width: '100%', maxHeight: 160, objectFit: 'cover', borderRadius: 12 }} />
+          <p style={{ marginTop: 6 }}>Fast pickup for Khari • Bread • Biscuits • Rusk • Cakes</p>
         </div>
         <Routes>
           <Route path="/" element={<ProductListPage />} />
