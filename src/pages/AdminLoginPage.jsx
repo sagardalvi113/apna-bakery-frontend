@@ -13,7 +13,7 @@ export default function AdminLoginPage(){
   const login = async () => {
     try {
       const res = await api.post('/api/auth/login', { email, password })
-      localStorage.setItem('token', res.data.token)
+      sessionStorage.setItem('token', res.data.token)
       navigate('/admin/orders')
     } catch (e){
       setError('Login failed')

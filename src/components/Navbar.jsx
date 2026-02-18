@@ -9,7 +9,7 @@ import { useCart } from '../store.js'
 export default function Navbar(){
   const { cart } = useCart()
   const navigate = useNavigate()
-  const token = localStorage.getItem('token')
+  const token = sessionStorage.getItem('token') || localStorage.getItem('token')
   const count = cart.reduce((a,c)=> a + c.quantity, 0)
   
   return (
