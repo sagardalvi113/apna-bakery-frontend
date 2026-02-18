@@ -161,7 +161,7 @@ export default function AdminOrdersPage(){
         <body>
           <div class="header">
             <div>
-              <h2>Highway Bakery</h2>
+              <h2>Amruta Bakery</h2>
               <div>Order #${order.id}</div>
               <div>${formatISTDateTime(order.createdAt)}</div>
             </div>

@@ -16,7 +16,7 @@ export default function ShopListPage(){
   return (
     <>
       <div style={{ display:'flex', alignItems:'center', gap:8, margin:'8px 0 16px' }}>
-        <span className="badge">Highway • Pickup</span>
+        <span className="badge">Amruta • Pickup</span>
       </div>
 
       {!shops && (

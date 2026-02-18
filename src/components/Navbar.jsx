@@ -42,7 +42,10 @@ export default function Navbar(){
           to="/" 
           underline="none"
         >
-          🍞 Highway Bakery
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <img src="/logo.png" alt="Amruta" style={{ height: 34, borderRadius: 6 }} />
+            <span style={{ fontWeight: 800, fontSize: 20, letterSpacing: '-0.02em' }}>Amruta</span>
+          </Box>
         </Typography>
         
         <Button 

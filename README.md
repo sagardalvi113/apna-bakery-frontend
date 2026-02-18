@@ -1,7 +1,7 @@
 
-# Highway Bakery Frontend (React + Vite + JavaScript)
+# Amruta Bakery Frontend (React + Vite + JavaScript)
 
-Beautiful, world‑class UI optimized for highway bakeries:
+Beautiful, world‑class UI for Amruta Bakery:
 - Glassmorphic cards, soft gradients, modern typography
 - Product dialog on card click + Add to Cart
 - Order search by ID/phone for travelers

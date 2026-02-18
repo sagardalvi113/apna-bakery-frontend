@@ -2,7 +2,7 @@
 export default function Footer(){
   return (
     <footer className="footer">
-      <div className="container">© {new Date().getFullYear()} Highway Bakery — Fast pickup for travelers</div>
+      <div className="container">© {new Date().getFullYear()} Amruta Bakery — Fast pickup for travelers</div>
     </footer>
   )
 }
