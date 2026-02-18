@@ -9,6 +9,7 @@ import { useCart } from '../store.js'
 export default function Navbar(){
   const { cart } = useCart()
   const navigate = useNavigate()
+  const token = localStorage.getItem('token')
   const count = cart.reduce((a,c)=> a + c.quantity, 0)
   
   return (
@@ -77,6 +78,22 @@ export default function Navbar(){
         >
           Admin
         </Button>
+
+        {token === 'admin-token' && (
+          <Button 
+            color="inherit" 
+            onClick={() => navigate('/admin/products')}
+            sx={{
+              fontWeight: 600,
+              fontSize: '13px',
+              textTransform: 'none',
+              transition: 'background 0.2s ease',
+              '&:hover': { background: 'rgba(106, 78, 35, 0.1)' }
+            }}
+          >
+            Products
+          </Button>
+        )}
         
         <IconButton 
           size="large" 
